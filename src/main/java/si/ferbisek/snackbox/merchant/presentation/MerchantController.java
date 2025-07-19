@@ -1,5 +1,7 @@
 package si.ferbisek.snackbox.merchant.presentation;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,9 +22,9 @@ public class MerchantController {
     }
 
     @PostMapping(path = "/merchants")
-    public MerchantDto save(@RequestBody MerchantDto merchant) {
+    public ResponseEntity<MerchantDto> save(@RequestBody MerchantDto merchant) {
         MerchantEntity merchantEntity = merchantMapper.mapFrom(merchant);
         MerchantEntity savedEntity = merchantService.create(merchantEntity);
-        return merchantMapper.mapTo(savedEntity);
+        return new ResponseEntity<>(merchantMapper.mapTo(savedEntity), HttpStatus.CREATED);
     }
 }
