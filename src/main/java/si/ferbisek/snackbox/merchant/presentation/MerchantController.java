@@ -26,7 +26,7 @@ public class MerchantController {
     @PostMapping(path = "/merchants")
     public ResponseEntity<MerchantDto> save(@RequestBody MerchantDto merchant) {
         MerchantEntity merchantEntity = merchantMapper.mapFrom(merchant);
-        MerchantEntity savedEntity = merchantService.create(merchantEntity);
+        MerchantEntity savedEntity = merchantService.save(merchantEntity);
         return new ResponseEntity<>(merchantMapper.mapTo(savedEntity), HttpStatus.CREATED);
     }
 
@@ -46,5 +46,28 @@ public class MerchantController {
             MerchantDto merchantDto =  merchantMapper.mapTo(merchantEntity);
             return new ResponseEntity<>(merchantDto, HttpStatus.OK);
         }).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @PutMapping(path = "/merchants/{id}")
+    public ResponseEntity<MerchantDto> fullUpdateMerchant(@PathVariable Long id, @RequestBody MerchantDto merchant) {
+        if (!merchantService.isExists(id)) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        merchant.setId(id);
+        MerchantEntity merchantEntity =  merchantMapper.mapFrom(merchant);
+        MerchantEntity savedMerchantEntity =  merchantService.save(merchantEntity);
+        return new ResponseEntity<>(merchantMapper.mapTo(savedMerchantEntity), HttpStatus.OK);
+    }
+
+    @PatchMapping(path = "/merchants/{id}")
+    public ResponseEntity<MerchantDto> partialUpdate(@PathVariable Long id, @RequestBody MerchantDto merchant) {
+        if (!merchantService.isExists(id)) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        MerchantEntity merchantEntity =  merchantMapper.mapFrom(merchant);
+        MerchantEntity updatedMerchantEntity = merchantService.partialUpdate(id, merchantEntity);
+        return new ResponseEntity<>(merchantMapper.mapTo(updatedMerchantEntity), HttpStatus.OK);
     }
 }

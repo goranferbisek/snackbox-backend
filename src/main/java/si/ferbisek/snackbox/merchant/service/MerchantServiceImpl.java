@@ -19,7 +19,7 @@ public class MerchantServiceImpl implements MerchantService {
     }
 
     @Override
-    public MerchantEntity create(MerchantEntity merchant) {
+    public MerchantEntity save(MerchantEntity merchant) {
         return merchantRepository.save(merchant);
     }
 
@@ -32,5 +32,21 @@ public class MerchantServiceImpl implements MerchantService {
     @Override
     public Optional<MerchantEntity> findOne(Long id) {
         return merchantRepository.findById(id);
+    }
+
+    @Override
+    public boolean isExists(Long id) {
+        return merchantRepository.existsById(id);
+    }
+
+    @Override
+    public MerchantEntity partialUpdate(Long id, MerchantEntity merchantEntity) {
+        merchantEntity.setId(id);
+
+        return merchantRepository.findById(id).map(existingMerchant -> {
+            Optional.ofNullable(merchantEntity.getName()).ifPresent(existingMerchant::setName);
+            Optional.ofNullable(merchantEntity.getDescription()).ifPresent(existingMerchant::setDescription);
+            return merchantRepository.save(existingMerchant);
+        }).orElseThrow(() -> new RuntimeException("Merchant does not exist!"));
     }
 }
