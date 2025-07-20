@@ -1,5 +1,7 @@
 package si.ferbisek.snackbox.merchant.service;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import si.ferbisek.snackbox.merchant.persistence.MerchantEntity;
 import si.ferbisek.snackbox.merchant.persistence.MerchantRepository;
@@ -48,5 +50,10 @@ public class MerchantServiceImpl implements MerchantService {
             Optional.ofNullable(merchantEntity.getDescription()).ifPresent(existingMerchant::setDescription);
             return merchantRepository.save(existingMerchant);
         }).orElseThrow(() -> new RuntimeException("Merchant does not exist!"));
+    }
+
+    @Override
+    public void delete(Long id) {
+        merchantRepository.deleteById(id);
     }
 }
