@@ -6,9 +6,13 @@ import java.util.List;
 import java.util.Optional;
 
 public interface MerchantService {
-    MerchantEntity create(MerchantEntity merchant);
+    MerchantEntity save(MerchantEntity merchant);
 
     List<MerchantEntity> findAll();
 
     Optional<MerchantEntity> findOne(Long id);
+
+    boolean isExists(Long id);
+
+    MerchantEntity partialUpdate(Long id, MerchantEntity merchantEntity);
 }
