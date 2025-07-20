@@ -70,4 +70,10 @@ public class MerchantController {
         MerchantEntity updatedMerchantEntity = merchantService.partialUpdate(id, merchantEntity);
         return new ResponseEntity<>(merchantMapper.mapTo(updatedMerchantEntity), HttpStatus.OK);
     }
+
+    @DeleteMapping(path = "/merchants/{id}")
+    public ResponseEntity<MerchantDto> deleteMerchant(@PathVariable Long id) {
+        merchantService.delete(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }

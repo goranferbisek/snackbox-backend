@@ -15,4 +15,6 @@ public interface MerchantService {
     boolean isExists(Long id);
 
     MerchantEntity partialUpdate(Long id, MerchantEntity merchantEntity);
+
+    void delete(Long id);
 }
