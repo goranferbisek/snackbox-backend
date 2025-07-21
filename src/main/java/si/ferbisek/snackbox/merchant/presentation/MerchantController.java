@@ -1,5 +1,7 @@
 package si.ferbisek.snackbox.merchant.presentation;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,11 +33,9 @@ public class MerchantController {
     }
 
     @GetMapping(path = "/merchants")
-    public List<MerchantDto> listMerchants() {
-        List<MerchantEntity> merchants = merchantService.findAll();
-        return merchants.stream()
-                .map(merchantMapper::mapTo)
-                .collect(Collectors.toList());
+    public Page<MerchantDto> listMerchants(Pageable pageable) {
+        Page<MerchantEntity> merchants = merchantService.findAll(pageable);
+        return merchants.map(merchantMapper::mapTo);
     }
 
     @GetMapping(path = "/merchants/{id}")

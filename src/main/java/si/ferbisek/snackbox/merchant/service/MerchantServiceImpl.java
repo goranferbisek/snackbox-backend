@@ -1,7 +1,7 @@
 package si.ferbisek.snackbox.merchant.service;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import si.ferbisek.snackbox.merchant.persistence.MerchantEntity;
 import si.ferbisek.snackbox.merchant.persistence.MerchantRepository;
@@ -29,6 +29,11 @@ public class MerchantServiceImpl implements MerchantService {
     public List<MerchantEntity> findAll() {
         return StreamSupport.stream(merchantRepository.findAll().spliterator(), false)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Page<MerchantEntity> findAll(Pageable pageable) {
+        return merchantRepository.findAll(pageable);
     }
 
     @Override
