@@ -1,11 +1,12 @@
 package si.ferbisek.snackbox.merchant.presentation;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import si.ferbisek.snackbox.menu_section.persistence.MenuSectionEntity;
 
-@Data
+import java.util.List;
+
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -16,4 +17,6 @@ public class MerchantDto {
     String name;
 
     String description;
+
+    List<MenuSectionEntity> menuSections;
 }

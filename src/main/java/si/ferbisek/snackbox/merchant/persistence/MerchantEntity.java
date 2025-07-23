@@ -1,10 +1,11 @@
 package si.ferbisek.snackbox.merchant.persistence;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import si.ferbisek.snackbox.menu_section.persistence.MenuSectionEntity;
+
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -22,10 +23,11 @@ public class MerchantEntity {
 
     String description;
 
-    /* TODO
-    *  menu categories
-    *    food list
-    *  delivery fee
-    * /
-*/
+    @OneToMany(mappedBy = "merchant", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    List<MenuSectionEntity> menuSections;
+
+    // TODO food list
+
+    // TODO delivery fee
 }
