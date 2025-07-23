@@ -6,19 +6,18 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import si.ferbisek.snackbox.mappers.Mapper;
+import si.ferbisek.snackbox.menu_section.persistence.MenuSectionEntity;
 import si.ferbisek.snackbox.merchant.persistence.MerchantEntity;
 import si.ferbisek.snackbox.merchant.service.MerchantService;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RestController
 public class MerchantController {
 
-    private MerchantService merchantService;
+    private final MerchantService merchantService;
 
-    private Mapper<MerchantEntity, MerchantDto> merchantMapper;
+    private final Mapper<MerchantEntity, MerchantDto> merchantMapper;
 
     public MerchantController(MerchantService merchantService, Mapper<MerchantEntity, MerchantDto> merchantMapper) {
         this.merchantService = merchantService;
@@ -28,6 +27,13 @@ public class MerchantController {
     @PostMapping(path = "/merchants")
     public ResponseEntity<MerchantDto> save(@RequestBody MerchantDto merchant) {
         MerchantEntity merchantEntity = merchantMapper.mapFrom(merchant);
+
+        if (merchant.getMenuSections() != null) {
+            for  (MenuSectionEntity menuSectionEntity : merchant.getMenuSections()) {
+                menuSectionEntity.setMerchant(merchantEntity);
+            }
+        }
+
         MerchantEntity savedEntity = merchantService.save(merchantEntity);
         return new ResponseEntity<>(merchantMapper.mapTo(savedEntity), HttpStatus.CREATED);
     }

@@ -8,7 +8,7 @@ import si.ferbisek.snackbox.merchant.persistence.MerchantEntity;
 @Component
 public class MerchantMapper implements Mapper<MerchantEntity, MerchantDto> {
 
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
 
     public MerchantMapper(ModelMapper modelMapper) {
         this.modelMapper = modelMapper;
