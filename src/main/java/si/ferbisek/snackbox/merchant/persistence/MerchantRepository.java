@@ -5,6 +5,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface MerchantRepository extends CrudRepository<MerchantEntity, Long>,
-        PagingAndSortingRepository<MerchantEntity, Long> {
+public interface MerchantRepository extends CrudRepository<Merchant, Long>,
+        PagingAndSortingRepository<Merchant, Long> {
 }

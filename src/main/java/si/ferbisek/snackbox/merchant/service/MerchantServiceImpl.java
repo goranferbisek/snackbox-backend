@@ -3,7 +3,7 @@ package si.ferbisek.snackbox.merchant.service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import si.ferbisek.snackbox.merchant.persistence.MerchantEntity;
+import si.ferbisek.snackbox.merchant.persistence.Merchant;
 import si.ferbisek.snackbox.merchant.persistence.MerchantRepository;
 
 import java.util.List;
@@ -21,23 +21,23 @@ public class MerchantServiceImpl implements MerchantService {
     }
 
     @Override
-    public MerchantEntity save(MerchantEntity merchant) {
+    public Merchant save(Merchant merchant) {
         return merchantRepository.save(merchant);
     }
 
     @Override
-    public List<MerchantEntity> findAll() {
+    public List<Merchant> findAll() {
         return StreamSupport.stream(merchantRepository.findAll().spliterator(), false)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public Page<MerchantEntity> findAll(Pageable pageable) {
+    public Page<Merchant> findAll(Pageable pageable) {
         return merchantRepository.findAll(pageable);
     }
 
     @Override
-    public Optional<MerchantEntity> findOne(Long id) {
+    public Optional<Merchant> findOne(Long id) {
         return merchantRepository.findById(id);
     }
 
@@ -47,12 +47,12 @@ public class MerchantServiceImpl implements MerchantService {
     }
 
     @Override
-    public MerchantEntity partialUpdate(Long id, MerchantEntity merchantEntity) {
-        merchantEntity.setId(id);
+    public Merchant partialUpdate(Long id, Merchant merchant) {
+        merchant.setId(id);
 
         return merchantRepository.findById(id).map(existingMerchant -> {
-            Optional.ofNullable(merchantEntity.getName()).ifPresent(existingMerchant::setName);
-            Optional.ofNullable(merchantEntity.getDescription()).ifPresent(existingMerchant::setDescription);
+            Optional.ofNullable(merchant.getName()).ifPresent(existingMerchant::setName);
+            Optional.ofNullable(merchant.getDescription()).ifPresent(existingMerchant::setDescription);
             return merchantRepository.save(existingMerchant);
         }).orElseThrow(() -> new RuntimeException("Merchant does not exist!"));
     }

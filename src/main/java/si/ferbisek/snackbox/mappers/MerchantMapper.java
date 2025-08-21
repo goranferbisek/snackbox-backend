@@ -2,11 +2,11 @@ package si.ferbisek.snackbox.mappers;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
+import si.ferbisek.snackbox.merchant.persistence.Merchant;
 import si.ferbisek.snackbox.merchant.presentation.MerchantDto;
-import si.ferbisek.snackbox.merchant.persistence.MerchantEntity;
 
 @Component
-public class MerchantMapper implements Mapper<MerchantEntity, MerchantDto> {
+public class MerchantMapper implements Mapper<Merchant, MerchantDto> {
 
     private final ModelMapper modelMapper;
 
@@ -15,12 +15,12 @@ public class MerchantMapper implements Mapper<MerchantEntity, MerchantDto> {
     }
 
     @Override
-    public MerchantDto mapTo(MerchantEntity merchantEntity) {
-        return modelMapper.map(merchantEntity, MerchantDto.class);
+    public MerchantDto mapTo(Merchant merchant) {
+        return modelMapper.map(merchant, MerchantDto.class);
     }
 
     @Override
-    public MerchantEntity mapFrom(MerchantDto merchantDTO) {
-        return modelMapper.map(merchantDTO, MerchantEntity.class);
+    public Merchant mapFrom(MerchantDto merchantDTO) {
+        return modelMapper.map(merchantDTO, Merchant.class);
     }
 }
