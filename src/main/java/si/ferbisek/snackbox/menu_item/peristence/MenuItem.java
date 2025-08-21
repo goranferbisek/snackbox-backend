@@ -24,16 +24,14 @@ public class MenuItem {
 
     private String name;
 
-    @ManyToOne
+    private BigDecimal price;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "section_id")
     private MenuSection section;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "merchant_id")
     private Merchant merchant;
-
-
-
-    private BigDecimal price;
 
 }
