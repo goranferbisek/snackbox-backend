@@ -1,7 +1,7 @@
 package si.ferbisek.snackbox.merchant.presentation;
 
 import lombok.*;
-import si.ferbisek.snackbox.menu_section.persistence.MenuSectionEntity;
+import si.ferbisek.snackbox.menu_section.persistence.MenuSection;
 
 import java.util.List;
 
@@ -18,5 +18,5 @@ public class MerchantDto {
 
     String description;
 
-    List<MenuSectionEntity> menuSections;
+    List<MenuSection> menuSections;
 }

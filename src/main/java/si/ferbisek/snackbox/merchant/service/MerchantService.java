@@ -2,23 +2,23 @@ package si.ferbisek.snackbox.merchant.service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import si.ferbisek.snackbox.merchant.persistence.MerchantEntity;
+import si.ferbisek.snackbox.merchant.persistence.Merchant;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface MerchantService {
-    MerchantEntity save(MerchantEntity merchant);
+    Merchant save(Merchant merchant);
 
-    List<MerchantEntity> findAll();
+    List<Merchant> findAll();
 
-    Page<MerchantEntity> findAll(Pageable pageable);
+    Page<Merchant> findAll(Pageable pageable);
 
-    Optional<MerchantEntity> findOne(Long id);
+    Optional<Merchant> findOne(Long id);
 
     boolean isExists(Long id);
 
-    MerchantEntity partialUpdate(Long id, MerchantEntity merchantEntity);
+    Merchant partialUpdate(Long id, Merchant merchant);
 
     void delete(Long id);
 }

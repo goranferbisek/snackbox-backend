@@ -6,8 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import si.ferbisek.snackbox.mappers.Mapper;
-import si.ferbisek.snackbox.menu_section.persistence.MenuSectionEntity;
-import si.ferbisek.snackbox.merchant.persistence.MerchantEntity;
+import si.ferbisek.snackbox.menu_section.persistence.MenuSection;
+import si.ferbisek.snackbox.merchant.persistence.Merchant;
 import si.ferbisek.snackbox.merchant.service.MerchantService;
 
 import java.util.Optional;
@@ -17,36 +17,36 @@ public class MerchantController {
 
     private final MerchantService merchantService;
 
-    private final Mapper<MerchantEntity, MerchantDto> merchantMapper;
+    private final Mapper<Merchant, MerchantDto> merchantMapper;
 
-    public MerchantController(MerchantService merchantService, Mapper<MerchantEntity, MerchantDto> merchantMapper) {
+    public MerchantController(MerchantService merchantService, Mapper<Merchant, MerchantDto> merchantMapper) {
         this.merchantService = merchantService;
         this.merchantMapper = merchantMapper;
     }
 
     @PostMapping(path = "/merchants")
     public ResponseEntity<MerchantDto> save(@RequestBody MerchantDto merchant) {
-        MerchantEntity merchantEntity = merchantMapper.mapFrom(merchant);
+        Merchant merchantEntity = merchantMapper.mapFrom(merchant);
 
         if (merchant.getMenuSections() != null) {
-            for  (MenuSectionEntity menuSectionEntity : merchant.getMenuSections()) {
-                menuSectionEntity.setMerchant(merchantEntity);
+            for  (MenuSection menuSection : merchant.getMenuSections()) {
+                menuSection.setMerchant(merchantEntity);
             }
         }
 
-        MerchantEntity savedEntity = merchantService.save(merchantEntity);
+        Merchant savedEntity = merchantService.save(merchantEntity);
         return new ResponseEntity<>(merchantMapper.mapTo(savedEntity), HttpStatus.CREATED);
     }
 
     @GetMapping(path = "/merchants")
     public Page<MerchantDto> listMerchants(Pageable pageable) {
-        Page<MerchantEntity> merchants = merchantService.findAll(pageable);
+        Page<Merchant> merchants = merchantService.findAll(pageable);
         return merchants.map(merchantMapper::mapTo);
     }
 
     @GetMapping(path = "/merchants/{id}")
     public ResponseEntity<MerchantDto> findById(@PathVariable Long id) {
-        Optional<MerchantEntity> foundMerchant = merchantService.findOne(id);
+        Optional<Merchant> foundMerchant = merchantService.findOne(id);
 
         return foundMerchant.map(merchantEntity -> {
             MerchantDto merchantDto =  merchantMapper.mapTo(merchantEntity);
@@ -61,9 +61,9 @@ public class MerchantController {
         }
 
         merchant.setId(id);
-        MerchantEntity merchantEntity =  merchantMapper.mapFrom(merchant);
-        MerchantEntity savedMerchantEntity =  merchantService.save(merchantEntity);
-        return new ResponseEntity<>(merchantMapper.mapTo(savedMerchantEntity), HttpStatus.OK);
+        Merchant merchantEntity =  merchantMapper.mapFrom(merchant);
+        Merchant savedMerchant =  merchantService.save(merchantEntity);
+        return new ResponseEntity<>(merchantMapper.mapTo(savedMerchant), HttpStatus.OK);
     }
 
     @PatchMapping(path = "/merchants/{id}")
@@ -72,9 +72,9 @@ public class MerchantController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        MerchantEntity merchantEntity =  merchantMapper.mapFrom(merchant);
-        MerchantEntity updatedMerchantEntity = merchantService.partialUpdate(id, merchantEntity);
-        return new ResponseEntity<>(merchantMapper.mapTo(updatedMerchantEntity), HttpStatus.OK);
+        Merchant merchantEntity =  merchantMapper.mapFrom(merchant);
+        Merchant updatedMerchant = merchantService.partialUpdate(id, merchantEntity);
+        return new ResponseEntity<>(merchantMapper.mapTo(updatedMerchant), HttpStatus.OK);
     }
 
     @DeleteMapping(path = "/merchants/{id}")
