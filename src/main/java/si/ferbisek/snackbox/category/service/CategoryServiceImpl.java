@@ -1,0 +1,31 @@
+package si.ferbisek.snackbox.category.service;
+
+import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import si.ferbisek.snackbox.category.persistence.Category;
+import si.ferbisek.snackbox.category.persistence.CategoryRepository;
+
+import java.util.List;
+
+@Service
+@RequiredArgsConstructor
+public class CategoryServiceImpl implements CategoryService {
+
+    private final CategoryRepository categoryRepository;
+
+    @Override
+    @Transactional
+    public Category save(Category category) {
+        if (categoryRepository.existsByNameIgnoreCase(category.getName())) {
+            throw new IllegalArgumentException("Category with name [" + category.getName() + "] already exists");
+        }
+
+        return categoryRepository.save(category);
+    }
+
+    @Override
+    public List<Category> listCategories() {
+        return categoryRepository.findAll();
+    }
+}
