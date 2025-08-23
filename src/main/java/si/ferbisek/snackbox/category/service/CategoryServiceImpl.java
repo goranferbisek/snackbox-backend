@@ -7,6 +7,7 @@ import si.ferbisek.snackbox.category.persistence.Category;
 import si.ferbisek.snackbox.category.persistence.CategoryRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -27,5 +28,16 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public List<Category> listCategories() {
         return categoryRepository.findAll();
+    }
+
+    @Override
+    public void delete(Long id) {
+        Optional<Category> category = categoryRepository.findById(id);
+        if (category.isPresent()) {
+            if (!category.get().getMerchants().isEmpty()) {
+                throw new IllegalStateException("Category has merchants associated with it");
+            }
+            categoryRepository.deleteById(id);
+        }
     }
 }

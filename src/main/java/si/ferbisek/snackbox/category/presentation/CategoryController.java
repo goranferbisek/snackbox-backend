@@ -32,7 +32,13 @@ public class CategoryController {
     public ResponseEntity<CategoryDto> save(@Valid @RequestBody CreateCategoryRequest categoryRequest) {
         Category categoryToCreate = categoryMapper.mapFrom(categoryRequest);
         Category savedCategory = categoryService.save(categoryToCreate);
-        
+
         return new ResponseEntity<>(categoryMapper.mapTo(savedCategory), HttpStatus.CREATED);
+    }
+
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        categoryService.delete(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
