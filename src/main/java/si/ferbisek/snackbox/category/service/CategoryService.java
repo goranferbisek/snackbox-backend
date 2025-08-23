@@ -8,4 +8,6 @@ public interface CategoryService {
     Category save(Category category);
 
     List<Category> listCategories();
+
+    void delete(Long id);
 }
