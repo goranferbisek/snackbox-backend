@@ -9,6 +9,7 @@ import si.ferbisek.snackbox.menu_section.service.MenuSectionService;
 import si.ferbisek.snackbox.merchant.service.MerchantService;
 
 @RestController
+@RequestMapping("/api")
 public class MenuSectionController {
 
     private final MenuSectionService menuSectionService;
