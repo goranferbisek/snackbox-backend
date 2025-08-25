@@ -1,11 +1,9 @@
 package si.ferbisek.snackbox.user.persistence;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import si.ferbisek.snackbox.merchant.persistence.Merchant;
 
 import java.time.Instant;
@@ -15,7 +13,9 @@ import java.util.Objects;
 @AllArgsConstructor
 @Getter
 @Setter
+@Builder
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "users")
 public class User {
 
