@@ -15,6 +15,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import si.ferbisek.snackbox.security.JwtAuthenticationFilter;
 import si.ferbisek.snackbox.security.MerchantUserDetailsService;
 import si.ferbisek.snackbox.security.service.AuthenticationService;
+import si.ferbisek.snackbox.user.persistence.User;
 import si.ferbisek.snackbox.user.persistence.UserRepository;
 
 @Configuration
@@ -27,7 +28,20 @@ public class SecurityConfig {
 
     @Bean
     public UserDetailsService userDetailsService(UserRepository userRepository) {
-        return new MerchantUserDetailsService(userRepository);
+        MerchantUserDetailsService userDetailsService = new MerchantUserDetailsService(userRepository);
+
+        // TODO Add a new user for test purposes! Remove before production. Implement user management
+        String email = "user@test.com";
+        userRepository.findByEmail(email).orElseGet(() -> {
+            User newUser = User.builder()
+                    .username("Test user")
+                    .email(email)
+                    .password(passwordEncoder().encode("password123!"))
+                    .build();
+            return userRepository.save(newUser);
+        });
+
+        return userDetailsService;
     }
 
     @Bean
