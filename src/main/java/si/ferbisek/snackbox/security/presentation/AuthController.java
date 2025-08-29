@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import si.ferbisek.snackbox.security.AuthResponse;
 import si.ferbisek.snackbox.security.LoginRequest;
+import si.ferbisek.snackbox.security.RegistrationRequest;
 import si.ferbisek.snackbox.security.service.AuthenticationService;
+import si.ferbisek.snackbox.user.persistence.UserRepository;
 
 @RestController
 @RequestMapping(path = "/api/auth")
@@ -18,6 +20,7 @@ import si.ferbisek.snackbox.security.service.AuthenticationService;
 public class AuthController {
 
     private final AuthenticationService authenticationService;
+    private final UserRepository userRepository;
 
     @PostMapping
     @RequestMapping("/login")
@@ -36,5 +39,16 @@ public class AuthController {
                 .build();
 
         return ResponseEntity.ok(authResponse);
+    }
+
+    @PostMapping
+    @RequestMapping("/registration")
+    public ResponseEntity<AuthResponse> registration(@RequestBody RegistrationRequest registrationRequest) {
+        if (userRepository.findByEmail(registrationRequest.getEmail()).isPresent()) {
+
+        }
+
+
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
 }
