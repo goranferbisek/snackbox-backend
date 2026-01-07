@@ -13,7 +13,7 @@ import si.ferbisek.snackbox.security.LoginRequest;
 import si.ferbisek.snackbox.security.service.AuthenticationService;
 
 @RestController
-@RequestMapping(path = "/api/auth")
+@RequestMapping(path = "/api/v1/auth")
 @RequiredArgsConstructor
 public class AuthController {
 

@@ -12,7 +12,7 @@ import si.ferbisek.snackbox.mappers.CategoryMapper;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/api/categories")
+@RequestMapping(path = "/api/v1/categories")
 @RequiredArgsConstructor
 public class CategoryController {
 

@@ -13,7 +13,7 @@ import si.ferbisek.snackbox.merchant.service.MerchantService;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/v1")
 public class MerchantController {
 
     private final MerchantService merchantService;
