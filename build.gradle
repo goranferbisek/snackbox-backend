@@ -13,6 +13,10 @@ java {
 	}
 }
 
+bootJar {
+	archiveFileName = 'snackbox-api.jar'
+}
+
 configurations {
 	compileOnly {
 		extendsFrom annotationProcessor
