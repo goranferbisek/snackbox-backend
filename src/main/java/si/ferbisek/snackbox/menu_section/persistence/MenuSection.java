@@ -31,6 +31,7 @@ public class MenuSection {
    private Merchant merchant;
 
    @OneToMany(mappedBy = "section", cascade = CascadeType.ALL, orphanRemoval = true)
+   @Builder.Default
    private List<MenuItem> items = new ArrayList<>();
 
     @Override
