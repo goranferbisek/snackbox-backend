@@ -2,9 +2,9 @@ package si.ferbisek.snackbox.mappers;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
-import si.ferbisek.snackbox.category.persistence.Category;
-import si.ferbisek.snackbox.category.presentation.CategoryDto;
-import si.ferbisek.snackbox.category.presentation.CreateCategoryRequest;
+import si.ferbisek.snackbox.entity.Category;
+import si.ferbisek.snackbox.dto.CategoryDto;
+import si.ferbisek.snackbox.dto.CreateCategoryRequest;
 
 @Component
 public class CategoryMapper implements Mapper<Category, CategoryDto> {

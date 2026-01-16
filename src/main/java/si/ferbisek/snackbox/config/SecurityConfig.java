@@ -14,9 +14,9 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import si.ferbisek.snackbox.security.JwtAuthenticationFilter;
 import si.ferbisek.snackbox.security.MerchantUserDetailsService;
-import si.ferbisek.snackbox.security.service.AuthenticationService;
-import si.ferbisek.snackbox.user.persistence.User;
-import si.ferbisek.snackbox.user.persistence.UserRepository;
+import si.ferbisek.snackbox.service.AuthenticationService;
+import si.ferbisek.snackbox.entity.User;
+import si.ferbisek.snackbox.repository.UserRepository;
 
 @Configuration
 public class SecurityConfig {

@@ -2,8 +2,8 @@ package si.ferbisek.snackbox.mappers;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
-import si.ferbisek.snackbox.merchant.persistence.Merchant;
-import si.ferbisek.snackbox.merchant.presentation.MerchantDto;
+import si.ferbisek.snackbox.entity.Merchant;
+import si.ferbisek.snackbox.dto.MerchantDto;
 
 @Component
 public class MerchantMapper implements Mapper<Merchant, MerchantDto> {

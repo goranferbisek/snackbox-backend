@@ -2,8 +2,8 @@ package si.ferbisek.snackbox.mappers;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
-import si.ferbisek.snackbox.menu_section.persistence.MenuSection;
-import si.ferbisek.snackbox.menu_section.presentation.MenuSectionDto;
+import si.ferbisek.snackbox.entity.MenuSection;
+import si.ferbisek.snackbox.dto.MenuSectionDto;
 
 @Component
 public class MenuSectionMapper implements Mapper<MenuSection, MenuSectionDto> {

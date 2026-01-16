@@ -4,8 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import si.ferbisek.snackbox.user.persistence.User;
-import si.ferbisek.snackbox.user.persistence.UserRepository;
+import si.ferbisek.snackbox.entity.User;
+import si.ferbisek.snackbox.repository.UserRepository;
 
 @RequiredArgsConstructor
 public class MerchantUserDetailsService implements UserDetailsService {
