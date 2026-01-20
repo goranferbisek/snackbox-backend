@@ -14,15 +14,21 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 @Entity
-@Table(name = "menu_item")
+@Table(
+        name = "menu_item",
+        uniqueConstraints =
+        @UniqueConstraint(columnNames = {"name", "section_id"})
+)
 public class MenuItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String name;
 
+    @Column(name = "price", nullable = false, precision = 10, scale = 2)
     private BigDecimal price;
 
     @ManyToOne(fetch = FetchType.LAZY)

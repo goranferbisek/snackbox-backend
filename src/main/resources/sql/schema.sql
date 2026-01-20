@@ -14,7 +14,8 @@ CREATE TABLE IF NOT EXISTS users
     password VARCHAR(255) NOT NULL,
     username VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    UNIQUE (email)
+    UNIQUE (email),
+    UNIQUE (username)
 );
 
 -- =====================
@@ -34,9 +35,9 @@ CREATE TABLE IF NOT EXISTS categories
 CREATE TABLE IF NOT EXISTS merchant
 (
     id           BIGINT AUTO_INCREMENT PRIMARY KEY,
-    description  VARCHAR(255),
-    name         VARCHAR(255),
-    delivery_fee DECIMAL(38, 2) NOT NULL,
+    name         VARCHAR(255) NOT NULL,
+    description  VARCHAR(500),
+    delivery_fee DECIMAL(10, 2) NOT NULL,
     owner_id     BIGINT,
     category_id  BIGINT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
@@ -56,7 +57,8 @@ CREATE TABLE IF NOT EXISTS menu_section
     name        VARCHAR(255),
     merchant_id BIGINT,
 
-    FOREIGN KEY (merchant_id) REFERENCES merchant (id) ON DELETE CASCADE
+    FOREIGN KEY (merchant_id) REFERENCES merchant (id) ON DELETE CASCADE,
+    CONSTRAINT UC_Menu_Section UNIQUE (name, merchant_id)
 );
 
 -- =====================
@@ -65,11 +67,12 @@ CREATE TABLE IF NOT EXISTS menu_section
 CREATE TABLE IF NOT EXISTS menu_item
 (
     id          BIGINT AUTO_INCREMENT PRIMARY KEY,
-    name        VARCHAR(255),
-    price       DECIMAL(38, 2),
+    name        VARCHAR(255) NOT NULL,
+    price       DECIMAL(10, 2),
     merchant_id BIGINT,
     section_id  BIGINT,
 
     FOREIGN KEY (merchant_id) REFERENCES merchant (id) ON DELETE CASCADE,
-    FOREIGN KEY (section_id) REFERENCES menu_section (id) ON DELETE CASCADE
+    FOREIGN KEY (section_id) REFERENCES menu_section (id) ON DELETE CASCADE,
+    CONSTRAINT UC_Menu_Item UNIQUE (name, section_id)
 );

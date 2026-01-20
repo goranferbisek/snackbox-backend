@@ -1,10 +1,8 @@
 package si.ferbisek.snackbox.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.ColumnDefault;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -27,8 +25,10 @@ public class Merchant {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String name;
 
+    @Column(nullable = false, length = 500)
     private String description;
 
     @OneToOne
@@ -43,7 +43,7 @@ public class Merchant {
     @JsonIgnore
     private List<MenuSection> menuSections;
 
-    @Column(name = "delivery_fee", nullable = false)
+    @Column(name = "delivery_fee", nullable = false, precision = 10, scale = 2)
     private BigDecimal deliveryFee;
 
     @CreatedDate

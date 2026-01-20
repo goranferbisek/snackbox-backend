@@ -15,24 +15,29 @@ import java.util.Objects;
 @Setter
 @Builder
 @Entity
-@Table(name = "menu_section")
+@Table(
+        name = "menu_section",
+        uniqueConstraints =
+        @UniqueConstraint(columnNames = {"name", "merchant_id"})
+)
 public class MenuSection {
 
-   @Id
-   @GeneratedValue(strategy = GenerationType.IDENTITY)
-   private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-   private String name;
+    @Column(nullable = false)
+    private String name;
 
-   @ManyToOne(cascade = CascadeType.ALL)
-   @JoinColumn(name = "merchant_id")
-   @JsonBackReference
-   private Merchant merchant;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "merchant_id")
+    @JsonBackReference
+    private Merchant merchant;
 
-   @OneToMany(mappedBy = "section", cascade = CascadeType.ALL, orphanRemoval = true)
-   @JsonManagedReference
-   @Builder.Default
-   private List<MenuItem> items = new ArrayList<>();
+    @OneToMany(mappedBy = "section", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    @Builder.Default
+    private List<MenuItem> items = new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {
