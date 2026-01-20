@@ -1,6 +1,7 @@
 package si.ferbisek.snackbox.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -29,6 +30,7 @@ public class MenuSection {
    private Merchant merchant;
 
    @OneToMany(mappedBy = "section", cascade = CascadeType.ALL, orphanRemoval = true)
+   @JsonManagedReference
    @Builder.Default
    private List<MenuItem> items = new ArrayList<>();
 

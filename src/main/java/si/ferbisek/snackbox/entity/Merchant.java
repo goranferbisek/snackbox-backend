@@ -1,5 +1,6 @@
 package si.ferbisek.snackbox.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -39,7 +40,7 @@ public class Merchant {
     private Category category;
 
     @OneToMany(mappedBy = "merchant", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
+    @JsonIgnore
     private List<MenuSection> menuSections;
 
     @Column(name = "delivery_fee", nullable = false)
@@ -53,11 +54,11 @@ public class Merchant {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Merchant merchant = (Merchant) o;
-        return Objects.equals(id, merchant.id) && Objects.equals(name, merchant.name) && Objects.equals(description, merchant.description) && Objects.equals(owner, merchant.owner) && Objects.equals(menuSections, merchant.menuSections) && Objects.equals(deliveryFee, merchant.deliveryFee);
+        return Objects.equals(id, merchant.id) && Objects.equals(name, merchant.name) && Objects.equals(description, merchant.description) && Objects.equals(deliveryFee, merchant.deliveryFee) && Objects.equals(createdAt, merchant.createdAt);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, description, owner, menuSections, deliveryFee);
+        return Objects.hash(id, name, description, deliveryFee, createdAt);
     }
 }
