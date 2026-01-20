@@ -35,7 +35,7 @@ public class User {
     private Merchant merchant;
 
     @CreatedDate
-    @Column(nullable = false)
+    @Column(name = "created_at", nullable = false)
     private Instant createdAt;
 
     @Override

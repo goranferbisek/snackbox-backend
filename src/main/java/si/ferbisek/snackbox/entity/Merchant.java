@@ -3,8 +3,12 @@ package si.ferbisek.snackbox.entity;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,6 +18,7 @@ import java.util.Objects;
 @Setter
 @Builder
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "merchant")
 public class Merchant {
 
@@ -39,6 +44,10 @@ public class Merchant {
 
     @Column(name = "delivery_fee", nullable = false)
     private BigDecimal deliveryFee;
+
+    @CreatedDate
+    @Column(name = "created_at", nullable = false)
+    private Instant createdAt;
 
     @Override
     public boolean equals(Object o) {

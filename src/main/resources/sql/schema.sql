@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS users
     email    VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
     username VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
     UNIQUE (email)
 );
 
@@ -38,6 +39,7 @@ CREATE TABLE IF NOT EXISTS merchant
     delivery_fee DECIMAL(38, 2) NOT NULL,
     owner_id     BIGINT,
     category_id  BIGINT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
 
     UNIQUE (owner_id),
 
