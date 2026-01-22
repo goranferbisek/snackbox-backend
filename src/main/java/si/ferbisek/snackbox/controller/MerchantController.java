@@ -1,40 +1,48 @@
 package si.ferbisek.snackbox.controller;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import si.ferbisek.snackbox.mappers.Mapper;
-import si.ferbisek.snackbox.entity.MenuSection;
-import si.ferbisek.snackbox.entity.Merchant;
+import si.ferbisek.snackbox.dto.CreateMerchantRequest;
 import si.ferbisek.snackbox.dto.MerchantDto;
+import si.ferbisek.snackbox.entity.Category;
+import si.ferbisek.snackbox.entity.Merchant;
+import si.ferbisek.snackbox.entity.User;
+import si.ferbisek.snackbox.mappers.MerchantMapper;
+import si.ferbisek.snackbox.repository.UserRepository;
+import si.ferbisek.snackbox.service.CategoryService;
 import si.ferbisek.snackbox.service.MerchantService;
 
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1")
+@RequiredArgsConstructor
 public class MerchantController {
 
     private final MerchantService merchantService;
-
-    private final Mapper<Merchant, MerchantDto> merchantMapper;
-
-    public MerchantController(MerchantService merchantService, Mapper<Merchant, MerchantDto> merchantMapper) {
-        this.merchantService = merchantService;
-        this.merchantMapper = merchantMapper;
-    }
+    private final MerchantMapper merchantMapper;
+    private final UserRepository userRepository;
+    private final CategoryService categoryService;
 
     @PostMapping(path = "/merchants")
-    public ResponseEntity<MerchantDto> save(@RequestBody MerchantDto merchant) {
-        Merchant merchantEntity = merchantMapper.mapFrom(merchant);
+    public ResponseEntity<MerchantDto> save(@RequestBody CreateMerchantRequest newMerchant) {
+        Merchant merchantEntity = merchantMapper.mapFrom(newMerchant);
 
-        if (merchant.getMenuSections() != null) {
-            for  (MenuSection menuSection : merchant.getMenuSections()) {
-                menuSection.setMerchant(merchantEntity);
-            }
-        }
+        // TODO set owner as currently logged in user
+        // this is temporary
+        User demoUser = userRepository.findByEmail("user@test.com")
+                .orElseThrow(() -> new IllegalArgumentException("Demo user not found"));
+        merchantEntity.setOwner(demoUser);
+
+        Category category = categoryService.findById(newMerchant.getCategoryId()).orElseThrow(() ->
+                new IllegalArgumentException("Category id: " + newMerchant.getCategoryId() + " does not exist")
+        );
+        merchantEntity.setCategory(category);
 
         Merchant savedEntity = merchantService.save(merchantEntity);
         return new ResponseEntity<>(merchantMapper.mapTo(savedEntity), HttpStatus.CREATED);
