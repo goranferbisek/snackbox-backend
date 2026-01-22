@@ -5,10 +5,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import si.ferbisek.snackbox.mappers.Mapper;
-import si.ferbisek.snackbox.entity.MenuSection;
-import si.ferbisek.snackbox.entity.Merchant;
+import si.ferbisek.snackbox.dto.CreateMerchantRequest;
 import si.ferbisek.snackbox.dto.MerchantDto;
+import si.ferbisek.snackbox.entity.Merchant;
+import si.ferbisek.snackbox.mappers.Mapper;
 import si.ferbisek.snackbox.service.MerchantService;
 
 import java.util.Optional;
@@ -27,17 +27,12 @@ public class MerchantController {
     }
 
     @PostMapping(path = "/merchants")
-    public ResponseEntity<MerchantDto> save(@RequestBody MerchantDto merchant) {
-        Merchant merchantEntity = merchantMapper.mapFrom(merchant);
+    public ResponseEntity<MerchantDto> save(@RequestBody CreateMerchantRequest createMerchantRequest) {
+        //Merchant merchantEntity = merchantMapper.mapFrom(createMerchantRequest);
 
-        if (merchant.getMenuSections() != null) {
-            for  (MenuSection menuSection : merchant.getMenuSections()) {
-                menuSection.setMerchant(merchantEntity);
-            }
-        }
-
-        Merchant savedEntity = merchantService.save(merchantEntity);
-        return new ResponseEntity<>(merchantMapper.mapTo(savedEntity), HttpStatus.CREATED);
+        //Merchant savedEntity = merchantService.save(merchantEntity);
+        //return new ResponseEntity<>(merchantMapper.mapTo(savedEntity), HttpStatus.CREATED);
+        return null;
     }
 
     @GetMapping(path = "/merchants")
