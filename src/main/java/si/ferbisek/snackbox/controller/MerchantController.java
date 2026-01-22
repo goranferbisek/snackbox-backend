@@ -5,10 +5,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import si.ferbisek.snackbox.mappers.Mapper;
-import si.ferbisek.snackbox.entity.MenuSection;
-import si.ferbisek.snackbox.entity.Merchant;
+import si.ferbisek.snackbox.dto.MenuSectionDto;
 import si.ferbisek.snackbox.dto.MerchantDto;
+import si.ferbisek.snackbox.entity.Merchant;
+import si.ferbisek.snackbox.mappers.Mapper;
 import si.ferbisek.snackbox.service.MerchantService;
 
 import java.util.Optional;
@@ -31,8 +31,8 @@ public class MerchantController {
         Merchant merchantEntity = merchantMapper.mapFrom(merchant);
 
         if (merchant.getMenuSections() != null) {
-            for  (MenuSection menuSection : merchant.getMenuSections()) {
-                menuSection.setMerchant(merchantEntity);
+            for (MenuSectionDto menuSectionDto : merchant.getMenuSections()) {
+                menuSectionDto.setMerchant(merchantEntity);
             }
         }
 

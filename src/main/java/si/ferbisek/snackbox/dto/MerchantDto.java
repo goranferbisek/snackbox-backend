@@ -1,8 +1,8 @@
 package si.ferbisek.snackbox.dto;
 
 import lombok.*;
-import si.ferbisek.snackbox.entity.MenuSection;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Getter
@@ -14,9 +14,11 @@ public class MerchantDto {
 
     private Long id;
 
-    String name;
+    private String name;
 
-    String description;
+    private String description;
 
-    List<MenuSection> menuSections;
+    private BigDecimal deliveryFee;
+
+    List<MenuSectionDto> menuSections;
 }
