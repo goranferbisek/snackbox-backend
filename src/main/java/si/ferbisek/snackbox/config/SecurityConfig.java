@@ -55,6 +55,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/v1/merchants/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/v1/menu-sections/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/v1/categories/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/snackbox/actuator/**").permitAll()
                         .anyRequest().authenticated()
 
                 ).csrf(csrf -> csrf.disable())
