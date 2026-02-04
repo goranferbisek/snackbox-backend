@@ -52,9 +52,9 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.POST, "/api/v1/auth/login").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/v1/merchants/**").permitAll()
+                        .requestMatchers("/api/v1/merchants/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/v1/menu-sections/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/v1/categories/**").permitAll()
+                        .requestMatchers("/api/v1/categories/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/snackbox/actuator/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/swagger-ui/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/v3/api-docs/**").permitAll()
