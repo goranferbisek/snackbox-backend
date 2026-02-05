@@ -25,24 +25,24 @@ INSERT INTO users (email, password, username) VALUES ('owner10@example.com', 'pa
 -- Merchants (Restaurants)
 -- =====================
 -- Chinese Restaurants
-INSERT INTO merchant (name, description, delivery_fee, owner_id, category_id) VALUES ('Dragon Palace', 'Authentic Chinese cuisine', 3.50, 1, 1);
-INSERT INTO merchant (name, description, delivery_fee, owner_id, category_id) VALUES ('Golden Wok', 'Traditional Chinese dishes', 2.99, 2, 1);
+INSERT INTO merchants(name, description, delivery_fee, owner_id, category_id) VALUES ('Dragon Palace', 'Authentic Chinese cuisine', 3.50, 1, 1);
+INSERT INTO merchants(name, description, delivery_fee, owner_id, category_id) VALUES ('Golden Wok', 'Traditional Chinese dishes', 2.99, 2, 1);
 
 -- Pizza Restaurants
-INSERT INTO merchant (name, description, delivery_fee, owner_id, category_id) VALUES ('Pizza Roma', 'Italian style pizzas', 2.50, 3, 2);
-INSERT INTO merchant (name, description, delivery_fee, owner_id, category_id) VALUES ('Bella Napoli', 'Neapolitan pizza specialists', 3.00, 4, 2);
+INSERT INTO merchants(name, description, delivery_fee, owner_id, category_id) VALUES ('Pizza Roma', 'Italian style pizzas', 2.50, 3, 2);
+INSERT INTO merchants(name, description, delivery_fee, owner_id, category_id) VALUES ('Bella Napoli', 'Neapolitan pizza specialists', 3.00, 4, 2);
 
 -- Balkan Restaurants
-INSERT INTO merchant (name, description, delivery_fee, owner_id, category_id) VALUES ('Balkan Grill', 'Traditional Balkan grilled meats', 3.00, 5, 3);
-INSERT INTO merchant (name, description, delivery_fee, owner_id, category_id) VALUES ('Cevabdzinica', 'Best cevapi in town', 2.50, 6, 3);
+INSERT INTO merchants(name, description, delivery_fee, owner_id, category_id) VALUES ('Balkan Grill', 'Traditional Balkan grilled meats', 3.00, 5, 3);
+INSERT INTO merchants(name, description, delivery_fee, owner_id, category_id) VALUES ('Cevabdzinica', 'Best cevapi in town', 2.50, 6, 3);
 
 -- Bakeries
-INSERT INTO merchant (name, description, delivery_fee, owner_id, category_id) VALUES ('Fresh Bakery', 'Freshly baked goods daily', 2.00, 7, 4);
-INSERT INTO merchant (name, description, delivery_fee, owner_id, category_id) VALUES ('Golden Crust', 'Artisan breads and pastries', 2.50, 8, 4);
+INSERT INTO merchants(name, description, delivery_fee, owner_id, category_id) VALUES ('Fresh Bakery', 'Freshly baked goods daily', 2.00, 7, 4);
+INSERT INTO merchants(name, description, delivery_fee, owner_id, category_id) VALUES ('Golden Crust', 'Artisan breads and pastries', 2.50, 8, 4);
 
 -- Sweet Shops
-INSERT INTO merchant (name, description, delivery_fee, owner_id, category_id) VALUES ('Sweet Dreams', 'Delicious desserts and cakes', 2.00, 9, 5);
-INSERT INTO merchant (name, description, delivery_fee, owner_id, category_id) VALUES ('Candy Heaven', 'Premium chocolates and sweets', 1.99, 10, 5);
+INSERT INTO merchants(name, description, delivery_fee, owner_id, category_id) VALUES ('Sweet Dreams', 'Delicious desserts and cakes', 2.00, 9, 5);
+INSERT INTO merchants(name, description, delivery_fee, owner_id, category_id) VALUES ('Candy Heaven', 'Premium chocolates and sweets', 1.99, 10, 5);
 
 -- =====================
 -- Menu Sections - Dragon Palace

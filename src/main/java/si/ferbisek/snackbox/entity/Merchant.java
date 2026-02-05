@@ -18,7 +18,7 @@ import java.util.Objects;
 @Builder
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "merchant")
+@Table(name = "merchants")
 public class Merchant {
 
     @Id
