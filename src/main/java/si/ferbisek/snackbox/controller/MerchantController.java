@@ -1,7 +1,7 @@
 package si.ferbisek.snackbox.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -30,7 +30,7 @@ public class MerchantController {
     private final CategoryService categoryService;
 
     @PostMapping(path = "/merchants")
-    public ResponseEntity<MerchantDto> save(@RequestBody CreateMerchantRequest newMerchant) {
+    public ResponseEntity<MerchantDto> saveMerchant(@Valid @RequestBody CreateMerchantRequest newMerchant) {
         Merchant merchantEntity = merchantMapper.mapFrom(newMerchant);
 
         // TODO set owner as currently logged in user
@@ -77,7 +77,7 @@ public class MerchantController {
     }
 
     @PatchMapping(path = "/merchants/{id}")
-    public ResponseEntity<MerchantDto> partialUpdate(@PathVariable Long id, @RequestBody MerchantDto merchant) {
+    public ResponseEntity<MerchantDto> partialUpdateMerchant(@PathVariable Long id, @RequestBody MerchantDto merchant) {
         if (!merchantService.isExists(id)) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
