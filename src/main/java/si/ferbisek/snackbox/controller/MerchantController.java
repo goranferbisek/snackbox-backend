@@ -65,13 +65,28 @@ public class MerchantController {
     }
 
     @PutMapping(path = "/merchants/{id}")
-    public ResponseEntity<MerchantDto> fullUpdateMerchant(@PathVariable Long id, @RequestBody MerchantDto merchant) {
+    public ResponseEntity<MerchantDto> fullUpdateMerchant(@PathVariable Long id, @RequestBody MerchantDto merchantDto) {
         if (!merchantService.isExists(id)) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        merchant.setId(id);
-        Merchant merchantEntity =  merchantMapper.mapFrom(merchant);
+        merchantDto.setId(id);
+        Merchant merchantEntity =  merchantMapper.mapFrom(merchantDto);
+
+        if (merchantDto.getCategoryId() != null) {
+            Category category = categoryService.findById(merchantDto.getCategoryId())
+                    .orElseThrow(() -> new IllegalArgumentException(
+                            "Category id: " + merchantDto.getCategoryId() + " does not exist"));
+            merchantEntity.setCategory(category);
+        }
+
+        if (merchantDto.getOwnerId() != null) {
+            User owner = userRepository.findById(merchantDto.getOwnerId())
+                    .orElseThrow(() -> new IllegalArgumentException(
+                            "User with id: " + merchantDto.getOwnerId() + " does not exist"));
+            merchantEntity.setOwner(owner);
+        }
+
         Merchant savedMerchant =  merchantService.save(merchantEntity);
         return new ResponseEntity<>(merchantMapper.mapTo(savedMerchant), HttpStatus.OK);
     }
